@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2 class="text-center mb-4">les statistiques</h2>
+    <div class="mt-4">
+        {{ graph_html|safe }}  <!-- Affiche le graphique généré par Plotly -->
+    </div>
+    <div class="mt-4 text-center">
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Back_to_Habits</a>
+    </div>
+{% endblock %} 
+

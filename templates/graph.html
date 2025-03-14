@@ -1,0 +1,17 @@
+@app.route('/plot')
+def plot():
+    # Récupérer toutes les habitudes
+    habits = Habit.query.all()
+    data = {
+        'Habit': [habit.name for habit in habits],
+        'Date': [habit.created_at.strftime('%Y-%m-%d') for habit in habits]
+    }
+    df = pd.DataFrame(data)
+    
+    # Générer un histogramme
+    fig = px.histogram(df, x='Date', color='Habit', title='Distribution des Habitudes par Date')
+    fig.update_layout(xaxis_title='Date', yaxis_title='Nombre d\'Habitudes', legend_title='Habitude')
+    
+    # Convertir le graphique en HTML
+    graph = fig.to_html(full_html=False)
+    return render_template('plot.html', graph=graph)
